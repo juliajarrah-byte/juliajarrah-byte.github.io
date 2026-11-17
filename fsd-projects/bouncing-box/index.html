@@ -71,10 +71,11 @@
         // TODO 2 - Variable declarations
         var positionX = 0;
 
+        // TODO 4 - Score variable: counts how many times the box was clicked
+        var points = 0;
 
-
-
-
+        // TODO 5 - Speed variable: pixels the box moves each frame (20 fps)
+        var speed = 10;
 
         /**
          * This Function will be called 20 times/second.
@@ -82,17 +83,20 @@
          * If the box drifts off the screen, turn it around!
          */
         function update() {
-        moveBoxTo(200); // Moves box to x-position 200
-        moveBoxTo(250); // Moves box to right edge
-        moveBoxTo(300); // Moves box to right edge
+          // TODO 2 - Move the box right by the current speed
+          positionX = positionX + speed;
 
+          // TODO 6 - Bounce off the RIGHT edge of the screen
+          if (positionX > boardWidth) {
+            speed *= -1; // reverse direction
+          }
+          // TODO 7 - Bounce off the LEFT edge of the screen
+          else if (positionX < 0) {
+            speed *= -1; // reverse direction
+          }
 
-
-
-
-        
-
-          
+          // Apply the new x-position to the box
+          moveBoxTo(positionX);
         }
 
         /**
@@ -103,14 +107,21 @@
          * - move the box to the left side of the screen.
          */
         function handleBoxClick() {
+          // TODO 3 - Reset the box to the left side of the screen
+          positionX = 0;
 
+          // TODO 4 - Increase the score by 1
+          points++;
 
+          // TODO 8 - Recalculate speed with the linear formula:
+          // speed = 3 * points + 10  (y = mx + b)
+          // This fixes the slowing-down bug: speed is always positive,
+          // so the box never loses speed when clicked while moving left.
+          speed = 3 * points + 10;
 
-
+          // Show the updated score on the box
+          changeBoxText(points);
         }
-
-
-        
       })();
     </script>
   </body>
